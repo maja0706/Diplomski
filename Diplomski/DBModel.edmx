@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PorudzbinaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblArtikl">
+          <Key>
+            <PropertyRef Name="artiklID" />
+          </Key>
+          <Property Name="artiklID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+          <Property Name="proizvodjac" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblDobavljac">
+          <Key>
+            <PropertyRef Name="dobavljacID" />
+          </Key>
+          <Property Name="dobavljacID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+          <Property Name="adresa" Type="nvarchar(max)" />
+          <Property Name="kontakt" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblKupac">
+          <Key>
+            <PropertyRef Name="kupacID" />
+          </Key>
+          <Property Name="kupacID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" />
+          <Property Name="korisnickoIme" Type="nvarchar" MaxLength="50" />
+          <Property Name="sifra" Type="nvarchar" MaxLength="50" />
+          <Property Name="admin" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblPorudzbina">
+          <Key>
+            <PropertyRef Name="porudzbinaID" />
+          </Key>
+          <Property Name="porudzbinaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datum" Type="date" />
+          <Property Name="isporuceno" Type="date" />
+          <Property Name="iznos" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="placeno" Type="bit" />
+          <Property Name="dobavljacID" Type="int" />
+          <Property Name="kupacID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblStavkaPorudzbine">
+          <Key>
+            <PropertyRef Name="stavkaPorudzbineID" />
+          </Key>
+          <Property Name="stavkaPorudzbineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="redniBroj" Type="int" />
+          <Property Name="kolicina" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="jedinicaMere" Type="nvarchar" MaxLength="50" />
+          <Property Name="cena" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="porudzbinaID" Type="int" />
+          <Property Name="artiklID" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblPorudzbina_tblDobavljac">
+          <End Role="tblDobavljac" Type="Self.tblDobavljac" Multiplicity="0..1" />
+          <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDobavljac">
+              <PropertyRef Name="dobavljacID" />
+            </Principal>
+            <Dependent Role="tblPorudzbina">
+              <PropertyRef Name="dobavljacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPorudzbina_tblKupac">
+          <End Role="tblKupac" Type="Self.tblKupac" Multiplicity="0..1" />
+          <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKupac">
+              <PropertyRef Name="kupacID" />
+            </Principal>
+            <Dependent Role="tblPorudzbina">
+              <PropertyRef Name="kupacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStavkaPorudzbine_tblArtikl">
+          <End Role="tblArtikl" Type="Self.tblArtikl" Multiplicity="0..1" />
+          <End Role="tblStavkaPorudzbine" Type="Self.tblStavkaPorudzbine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtikl">
+              <PropertyRef Name="artiklID" />
+            </Principal>
+            <Dependent Role="tblStavkaPorudzbine">
+              <PropertyRef Name="artiklID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStavkaPorudzbine_tblPorudzbina">
+          <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="0..1" />
+          <End Role="tblStavkaPorudzbine" Type="Self.tblStavkaPorudzbine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPorudzbina">
+              <PropertyRef Name="porudzbinaID" />
+            </Principal>
+            <Dependent Role="tblStavkaPorudzbine">
+              <PropertyRef Name="porudzbinaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PorudzbinaModelStoreContainer">
+          <EntitySet Name="tblArtikl" EntityType="Self.tblArtikl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDobavljac" EntityType="Self.tblDobavljac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKupac" EntityType="Self.tblKupac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPorudzbina" EntityType="Self.tblPorudzbina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStavkaPorudzbine" EntityType="Self.tblStavkaPorudzbine" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblPorudzbina_tblDobavljac" Association="Self.FK_tblPorudzbina_tblDobavljac">
+            <End Role="tblDobavljac" EntitySet="tblDobavljac" />
+            <End Role="tblPorudzbina" EntitySet="tblPorudzbina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPorudzbina_tblKupac" Association="Self.FK_tblPorudzbina_tblKupac">
+            <End Role="tblKupac" EntitySet="tblKupac" />
+            <End Role="tblPorudzbina" EntitySet="tblPorudzbina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStavkaPorudzbine_tblArtikl" Association="Self.FK_tblStavkaPorudzbine_tblArtikl">
+            <End Role="tblArtikl" EntitySet="tblArtikl" />
+            <End Role="tblStavkaPorudzbine" EntitySet="tblStavkaPorudzbine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStavkaPorudzbine_tblPorudzbina" Association="Self.FK_tblStavkaPorudzbine_tblPorudzbina">
+            <End Role="tblPorudzbina" EntitySet="tblPorudzbina" />
+            <End Role="tblStavkaPorudzbine" EntitySet="tblStavkaPorudzbine" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PorudzbinaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblArtikl">
+          <Key>
+            <PropertyRef Name="artiklID" />
+          </Key>
+          <Property Name="artiklID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="proizvodjac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblStavkaPorudzbines" Relationship="Self.FK_tblStavkaPorudzbine_tblArtikl" FromRole="tblArtikl" ToRole="tblStavkaPorudzbine" />
+        </EntityType>
+        <EntityType Name="tblDobavljac">
+          <Key>
+            <PropertyRef Name="dobavljacID" />
+          </Key>
+          <Property Name="dobavljacID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adresa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kontakt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPorudzbinas" Relationship="Self.FK_tblPorudzbina_tblDobavljac" FromRole="tblDobavljac" ToRole="tblPorudzbina" />
+        </EntityType>
+        <EntityType Name="tblKupac">
+          <Key>
+            <PropertyRef Name="kupacID" />
+          </Key>
+          <Property Name="kupacID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="korisnickoIme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sifra" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="admin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPorudzbinas" Relationship="Self.FK_tblPorudzbina_tblKupac" FromRole="tblKupac" ToRole="tblPorudzbina" />
+        </EntityType>
+        <EntityType Name="tblPorudzbina">
+          <Key>
+            <PropertyRef Name="porudzbinaID" />
+          </Key>
+          <Property Name="porudzbinaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datum" Type="DateTime" Precision="0" />
+          <Property Name="isporuceno" Type="DateTime" Precision="0" />
+          <Property Name="iznos" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="placeno" Type="Boolean" />
+          <Property Name="dobavljacID" Type="Int32" />
+          <Property Name="kupacID" Type="Int32" />
+          <NavigationProperty Name="tblDobavljac" Relationship="Self.FK_tblPorudzbina_tblDobavljac" FromRole="tblPorudzbina" ToRole="tblDobavljac" />
+          <NavigationProperty Name="tblKupac" Relationship="Self.FK_tblPorudzbina_tblKupac" FromRole="tblPorudzbina" ToRole="tblKupac" />
+          <NavigationProperty Name="tblStavkaPorudzbines" Relationship="Self.FK_tblStavkaPorudzbine_tblPorudzbina" FromRole="tblPorudzbina" ToRole="tblStavkaPorudzbine" />
+        </EntityType>
+        <EntityType Name="tblStavkaPorudzbine">
+          <Key>
+            <PropertyRef Name="stavkaPorudzbineID" />
+          </Key>
+          <Property Name="stavkaPorudzbineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="redniBroj" Type="Int32" />
+          <Property Name="kolicina" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="jedinicaMere" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cena" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="porudzbinaID" Type="Int32" />
+          <Property Name="artiklID" Type="Int32" />
+          <NavigationProperty Name="tblArtikl" Relationship="Self.FK_tblStavkaPorudzbine_tblArtikl" FromRole="tblStavkaPorudzbine" ToRole="tblArtikl" />
+          <NavigationProperty Name="tblPorudzbina" Relationship="Self.FK_tblStavkaPorudzbine_tblPorudzbina" FromRole="tblStavkaPorudzbine" ToRole="tblPorudzbina" />
+        </EntityType>
+        <Association Name="FK_tblStavkaPorudzbine_tblArtikl">
+          <End Role="tblArtikl" Type="Self.tblArtikl" Multiplicity="0..1" />
+          <End Role="tblStavkaPorudzbine" Type="Self.tblStavkaPorudzbine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblArtikl">
+              <PropertyRef Name="artiklID" />
+            </Principal>
+            <Dependent Role="tblStavkaPorudzbine">
+              <PropertyRef Name="artiklID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPorudzbina_tblDobavljac">
+          <End Role="tblDobavljac" Type="Self.tblDobavljac" Multiplicity="0..1" />
+          <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDobavljac">
+              <PropertyRef Name="dobavljacID" />
+            </Principal>
+            <Dependent Role="tblPorudzbina">
+              <PropertyRef Name="dobavljacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPorudzbina_tblKupac">
+          <End Role="tblKupac" Type="Self.tblKupac" Multiplicity="0..1" />
+          <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKupac">
+              <PropertyRef Name="kupacID" />
+            </Principal>
+            <Dependent Role="tblPorudzbina">
+              <PropertyRef Name="kupacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStavkaPorudzbine_tblPorudzbina">
+          <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="0..1" />
+          <End Role="tblStavkaPorudzbine" Type="Self.tblStavkaPorudzbine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPorudzbina">
+              <PropertyRef Name="porudzbinaID" />
+            </Principal>
+            <Dependent Role="tblStavkaPorudzbine">
+              <PropertyRef Name="porudzbinaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PorudzbinaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblArtikls" EntityType="Self.tblArtikl" />
+          <EntitySet Name="tblDobavljacs" EntityType="Self.tblDobavljac" />
+          <EntitySet Name="tblKupacs" EntityType="Self.tblKupac" />
+          <EntitySet Name="tblPorudzbinas" EntityType="Self.tblPorudzbina" />
+          <EntitySet Name="tblStavkaPorudzbines" EntityType="Self.tblStavkaPorudzbine" />
+          <AssociationSet Name="FK_tblStavkaPorudzbine_tblArtikl" Association="Self.FK_tblStavkaPorudzbine_tblArtikl">
+            <End Role="tblArtikl" EntitySet="tblArtikls" />
+            <End Role="tblStavkaPorudzbine" EntitySet="tblStavkaPorudzbines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPorudzbina_tblDobavljac" Association="Self.FK_tblPorudzbina_tblDobavljac">
+            <End Role="tblDobavljac" EntitySet="tblDobavljacs" />
+            <End Role="tblPorudzbina" EntitySet="tblPorudzbinas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPorudzbina_tblKupac" Association="Self.FK_tblPorudzbina_tblKupac">
+            <End Role="tblKupac" EntitySet="tblKupacs" />
+            <End Role="tblPorudzbina" EntitySet="tblPorudzbinas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStavkaPorudzbine_tblPorudzbina" Association="Self.FK_tblStavkaPorudzbine_tblPorudzbina">
+            <End Role="tblPorudzbina" EntitySet="tblPorudzbinas" />
+            <End Role="tblStavkaPorudzbine" EntitySet="tblStavkaPorudzbines" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PorudzbinaModelStoreContainer" CdmEntityContainer="PorudzbinaEntities">
+          <EntitySetMapping Name="tblArtikls">
+            <EntityTypeMapping TypeName="PorudzbinaModel.tblArtikl">
+              <MappingFragment StoreEntitySet="tblArtikl">
+                <ScalarProperty Name="artiklID" ColumnName="artiklID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="proizvodjac" ColumnName="proizvodjac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDobavljacs">
+            <EntityTypeMapping TypeName="PorudzbinaModel.tblDobavljac">
+              <MappingFragment StoreEntitySet="tblDobavljac">
+                <ScalarProperty Name="dobavljacID" ColumnName="dobavljacID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="kontakt" ColumnName="kontakt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKupacs">
+            <EntityTypeMapping TypeName="PorudzbinaModel.tblKupac">
+              <MappingFragment StoreEntitySet="tblKupac">
+                <ScalarProperty Name="kupacID" ColumnName="kupacID" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="korisnickoIme" ColumnName="korisnickoIme" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPorudzbinas">
+            <EntityTypeMapping TypeName="PorudzbinaModel.tblPorudzbina">
+              <MappingFragment StoreEntitySet="tblPorudzbina">
+                <ScalarProperty Name="porudzbinaID" ColumnName="porudzbinaID" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="isporuceno" ColumnName="isporuceno" />
+                <ScalarProperty Name="iznos" ColumnName="iznos" />
+                <ScalarProperty Name="placeno" ColumnName="placeno" />
+                <ScalarProperty Name="dobavljacID" ColumnName="dobavljacID" />
+                <ScalarProperty Name="kupacID" ColumnName="kupacID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStavkaPorudzbines">
+            <EntityTypeMapping TypeName="PorudzbinaModel.tblStavkaPorudzbine">
+              <MappingFragment StoreEntitySet="tblStavkaPorudzbine">
+                <ScalarProperty Name="stavkaPorudzbineID" ColumnName="stavkaPorudzbineID" />
+                <ScalarProperty Name="redniBroj" ColumnName="redniBroj" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="jedinicaMere" ColumnName="jedinicaMere" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="porudzbinaID" ColumnName="porudzbinaID" />
+                <ScalarProperty Name="artiklID" ColumnName="artiklID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

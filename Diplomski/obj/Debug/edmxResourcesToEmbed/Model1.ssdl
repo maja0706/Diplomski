@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PorudzbinaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblArtikl">
+    <Key>
+      <PropertyRef Name="artiklID" />
+    </Key>
+    <Property Name="artiklID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+    <Property Name="proizvodjac" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblDobavljac">
+    <Key>
+      <PropertyRef Name="dobavljacID" />
+    </Key>
+    <Property Name="dobavljacID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+    <Property Name="adresa" Type="nvarchar(max)" />
+    <Property Name="kontakt" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblKupac">
+    <Key>
+      <PropertyRef Name="kupacID" />
+    </Key>
+    <Property Name="kupacID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ime" Type="nvarchar" MaxLength="50" />
+    <Property Name="korisnickoIme" Type="nvarchar" MaxLength="50" />
+    <Property Name="sifra" Type="nvarchar" MaxLength="50" />
+    <Property Name="admin" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblPorudzbina">
+    <Key>
+      <PropertyRef Name="porudzbinaID" />
+    </Key>
+    <Property Name="porudzbinaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="datum" Type="date" />
+    <Property Name="isporuceno" Type="date" />
+    <Property Name="iznos" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="placeno" Type="bit" />
+    <Property Name="dobavljacID" Type="int" />
+    <Property Name="kupacID" Type="int" />
+  </EntityType>
+  <EntityType Name="tblStavkaPorudzbine">
+    <Key>
+      <PropertyRef Name="stavkaPorudzbineID" />
+    </Key>
+    <Property Name="stavkaPorudzbineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="redniBroj" Type="int" />
+    <Property Name="kolicina" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="jedinicaMere" Type="nvarchar" MaxLength="50" />
+    <Property Name="cena" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="porudzbinaID" Type="int" />
+    <Property Name="artiklID" Type="int" />
+  </EntityType>
+  <Association Name="FK_tblPorudzbina_tblDobavljac">
+    <End Role="tblDobavljac" Type="Self.tblDobavljac" Multiplicity="0..1" />
+    <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDobavljac">
+        <PropertyRef Name="dobavljacID" />
+      </Principal>
+      <Dependent Role="tblPorudzbina">
+        <PropertyRef Name="dobavljacID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPorudzbina_tblKupac">
+    <End Role="tblKupac" Type="Self.tblKupac" Multiplicity="0..1" />
+    <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKupac">
+        <PropertyRef Name="kupacID" />
+      </Principal>
+      <Dependent Role="tblPorudzbina">
+        <PropertyRef Name="kupacID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStavkaPorudzbine_tblArtikl">
+    <End Role="tblArtikl" Type="Self.tblArtikl" Multiplicity="0..1" />
+    <End Role="tblStavkaPorudzbine" Type="Self.tblStavkaPorudzbine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblArtikl">
+        <PropertyRef Name="artiklID" />
+      </Principal>
+      <Dependent Role="tblStavkaPorudzbine">
+        <PropertyRef Name="artiklID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStavkaPorudzbine_tblPorudzbina">
+    <End Role="tblPorudzbina" Type="Self.tblPorudzbina" Multiplicity="0..1" />
+    <End Role="tblStavkaPorudzbine" Type="Self.tblStavkaPorudzbine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPorudzbina">
+        <PropertyRef Name="porudzbinaID" />
+      </Principal>
+      <Dependent Role="tblStavkaPorudzbine">
+        <PropertyRef Name="porudzbinaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PorudzbinaModel1StoreContainer">
+    <EntitySet Name="tblArtikl" EntityType="Self.tblArtikl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDobavljac" EntityType="Self.tblDobavljac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblKupac" EntityType="Self.tblKupac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPorudzbina" EntityType="Self.tblPorudzbina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblStavkaPorudzbine" EntityType="Self.tblStavkaPorudzbine" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblPorudzbina_tblDobavljac" Association="Self.FK_tblPorudzbina_tblDobavljac">
+      <End Role="tblDobavljac" EntitySet="tblDobavljac" />
+      <End Role="tblPorudzbina" EntitySet="tblPorudzbina" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPorudzbina_tblKupac" Association="Self.FK_tblPorudzbina_tblKupac">
+      <End Role="tblKupac" EntitySet="tblKupac" />
+      <End Role="tblPorudzbina" EntitySet="tblPorudzbina" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStavkaPorudzbine_tblArtikl" Association="Self.FK_tblStavkaPorudzbine_tblArtikl">
+      <End Role="tblArtikl" EntitySet="tblArtikl" />
+      <End Role="tblStavkaPorudzbine" EntitySet="tblStavkaPorudzbine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStavkaPorudzbine_tblPorudzbina" Association="Self.FK_tblStavkaPorudzbine_tblPorudzbina">
+      <End Role="tblPorudzbina" EntitySet="tblPorudzbina" />
+      <End Role="tblStavkaPorudzbine" EntitySet="tblStavkaPorudzbine" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

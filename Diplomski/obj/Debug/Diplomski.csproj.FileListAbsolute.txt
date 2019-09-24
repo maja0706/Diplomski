@@ -1,0 +1,3 @@
+C:\Users\Vukmanovic\documents\visual studio 2015\Projects\WindowsFormsApplication9\WindowsFormsApplication9\bin\Debug\WindowsFormsApplication9.exe.config
+C:\Users\Vukmanovic\documents\visual studio 2015\Projects\WindowsFormsApplication9\WindowsFormsApplication9\obj\Debug\WindowsFormsApplication9.exe
+C:\Users\Vukmanovic\documents\visual studio 2015\Projects\WindowsFormsApplication9\WindowsFormsApplication9\obj\Debug\WindowsFormsApplication9.pdb

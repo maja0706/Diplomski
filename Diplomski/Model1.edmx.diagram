@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="33a4d3db36594aec8065d0e3ce6dd80f" Name="Diagram1">
+        <EntityTypeShape EntityType="PorudzbinaModel1.tblArtikl" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PorudzbinaModel1.tblDobavljac" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PorudzbinaModel1.tblKupac" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PorudzbinaModel1.tblPorudzbina" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PorudzbinaModel1.tblStavkaPorudzbine" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="PorudzbinaModel1.FK_tblStavkaPorudzbine_tblArtikl" ManuallyRouted="false" />
+        <AssociationConnector Association="PorudzbinaModel1.FK_tblPorudzbina_tblDobavljac" ManuallyRouted="false" />
+        <AssociationConnector Association="PorudzbinaModel1.FK_tblPorudzbina_tblKupac" ManuallyRouted="false" />
+        <AssociationConnector Association="PorudzbinaModel1.FK_tblStavkaPorudzbine_tblPorudzbina" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

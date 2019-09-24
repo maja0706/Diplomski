@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PorudzbinaModel1StoreContainer" CdmEntityContainer="PorudzbinaEntities1">
+    <EntitySetMapping Name="tblArtikls">
+      <EntityTypeMapping TypeName="PorudzbinaModel1.tblArtikl">
+        <MappingFragment StoreEntitySet="tblArtikl">
+          <ScalarProperty Name="artiklID" ColumnName="artiklID" />
+          <ScalarProperty Name="naziv" ColumnName="naziv" />
+          <ScalarProperty Name="proizvodjac" ColumnName="proizvodjac" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDobavljacs">
+      <EntityTypeMapping TypeName="PorudzbinaModel1.tblDobavljac">
+        <MappingFragment StoreEntitySet="tblDobavljac">
+          <ScalarProperty Name="dobavljacID" ColumnName="dobavljacID" />
+          <ScalarProperty Name="naziv" ColumnName="naziv" />
+          <ScalarProperty Name="adresa" ColumnName="adresa" />
+          <ScalarProperty Name="kontakt" ColumnName="kontakt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblKupacs">
+      <EntityTypeMapping TypeName="PorudzbinaModel1.tblKupac">
+        <MappingFragment StoreEntitySet="tblKupac">
+          <ScalarProperty Name="kupacID" ColumnName="kupacID" />
+          <ScalarProperty Name="ime" ColumnName="ime" />
+          <ScalarProperty Name="korisnickoIme" ColumnName="korisnickoIme" />
+          <ScalarProperty Name="sifra" ColumnName="sifra" />
+          <ScalarProperty Name="admin" ColumnName="admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPorudzbinas">
+      <EntityTypeMapping TypeName="PorudzbinaModel1.tblPorudzbina">
+        <MappingFragment StoreEntitySet="tblPorudzbina">
+          <ScalarProperty Name="porudzbinaID" ColumnName="porudzbinaID" />
+          <ScalarProperty Name="datum" ColumnName="datum" />
+          <ScalarProperty Name="isporuceno" ColumnName="isporuceno" />
+          <ScalarProperty Name="iznos" ColumnName="iznos" />
+          <ScalarProperty Name="placeno" ColumnName="placeno" />
+          <ScalarProperty Name="dobavljacID" ColumnName="dobavljacID" />
+          <ScalarProperty Name="kupacID" ColumnName="kupacID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblStavkaPorudzbines">
+      <EntityTypeMapping TypeName="PorudzbinaModel1.tblStavkaPorudzbine">
+        <MappingFragment StoreEntitySet="tblStavkaPorudzbine">
+          <ScalarProperty Name="stavkaPorudzbineID" ColumnName="stavkaPorudzbineID" />
+          <ScalarProperty Name="redniBroj" ColumnName="redniBroj" />
+          <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+          <ScalarProperty Name="jedinicaMere" ColumnName="jedinicaMere" />
+          <ScalarProperty Name="cena" ColumnName="cena" />
+          <ScalarProperty Name="porudzbinaID" ColumnName="porudzbinaID" />
+          <ScalarProperty Name="artiklID" ColumnName="artiklID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
